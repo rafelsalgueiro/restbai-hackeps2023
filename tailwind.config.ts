@@ -8,7 +8,7 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      'carrot-orange': {
+      primary: {
         '50': '#fff7eb',
         '100': '#fde9c8',
         '200': '#fbd28c',
@@ -30,6 +30,6 @@ const config: Config = {
       '2xl': '1536px',
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }
 export default config

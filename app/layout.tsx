@@ -5,6 +5,7 @@ import './globals.css'
 const openSans = Open_Sans({
   subsets: ['latin'],
   display: 'swap',
+  weight: '400',
 })
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={openSans.className}>{children}</body>
+      <body className={`${openSans.className}`}>{children}</body>
     </html>
   )
 }
