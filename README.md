@@ -1,0 +1,1 @@
+This is a Next.js project made for the RestB.ai challenge. It uses the [RestB.ai API](https://restb.ai/) to classify real estate images and after processing them, it generates an advertisement ready to be published to a real estate website.
