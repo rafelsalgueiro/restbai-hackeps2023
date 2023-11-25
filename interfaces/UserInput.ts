@@ -3,7 +3,7 @@ import { PropertyType } from '@/enums/PropertyType.enum'
 export interface UserInput {
   street: string
   zipcode: number
-  m2: number
+  squareFeets: number
   city: string
   state: string
   country: string
@@ -11,5 +11,5 @@ export interface UserInput {
   garageSpaces?: number
   yearBuilt?: number
   tone: 'professional'
-  images: string[]
+  images: FileList[]
 }
