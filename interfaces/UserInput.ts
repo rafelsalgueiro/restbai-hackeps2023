@@ -2,7 +2,7 @@ import { PropertyType } from '@/enums/PropertyType.enum'
 
 export interface UserInput {
   street: string
-  zipcode?: number
+  zipcode: number
   m2: number
   city: string
   state: string
