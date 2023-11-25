@@ -10,6 +10,5 @@ export interface UserInput {
   propertyType: PropertyType
   garageSpaces?: number
   yearBuilt?: number
-  tone: 'professional'
   images: FileList[]
 }
