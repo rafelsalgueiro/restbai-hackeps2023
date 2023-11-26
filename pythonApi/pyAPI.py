@@ -177,8 +177,7 @@ def formatJoblib():
     # ...
 
     # Guardar los resultados en un archivo de salida
-    print(str(resultados[0]).split(".")[0]+" €")
-    return str(resultados[0]).split(".")[0]+" €"
+    return str(resultados[0]).split(".")[0]
 
 
 @app.route('/r1r6', methods=['POST'])

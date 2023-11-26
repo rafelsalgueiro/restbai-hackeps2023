@@ -3,16 +3,11 @@ import { useState } from "react";
 
 const API_BASE_URL = 'https://description.restb.ai/v2/describe/listing';
 
-export const fetchDataFromApi = async (bodyInput: UserInput) => {
-    try {
+export const fetchDataFromApiDescription = async (bodyInput: UserInput) => {
         const params = { client_key: '4451eee9b4efd17b513a33ff7f53a06123dbb5b91fecce2b0863307623f38eff'};  // Ejemplo de parámetros
-        const body = buildJSON(bodyInput);  // Ejemplo de cuerpo (body)
-        
-        const apiData = await fetchData(params, body);
-        console.log(apiData)
-    } catch (error) {
-        console.error('Error al llamar a la API:', error);
-    }
+        let body = buildBody(bodyInput);  // Ejemplo de cuerpo (body)
+        let response = await fetchData(params, body);
+        return JSON.stringify(response);
 };
 
 const fetchData = async (params?: Record<string, string>, body?: any): Promise<any> => {
@@ -44,9 +39,8 @@ const fetchData = async (params?: Record<string, string>, body?: any): Promise<a
     }
   };
 
-const buildJSON = (inputBody: UserInput) => {
+const buildBody = (inputBody: UserInput) => {
     let bodyJson = {};
-    let images = ["https://photos.zillowstatic.com/fp/7cbf5d4c92a8465061274067d9756b90-sc_1920_1280.webp","https://photos.zillowstatic.com/fp/b4e3d4ab624cb36c86ea9bfe287b2ba4-sc_1920_1280.webp"];
     (bodyJson as any).location = {};
     (bodyJson as any).location.address = inputBody.street;
     //(bodyJson as any).zipcode = inputBody.zipcode;
@@ -67,6 +61,6 @@ const buildJSON = (inputBody: UserInput) => {
     if (inputBody.yearBuilt) {
         (bodyJson as any).property.year_built = inputBody.yearBuilt;
     }
-    console.log(bodyJson);
+    //console.log(bodyJson);
     return bodyJson;
 };

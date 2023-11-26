@@ -4,15 +4,10 @@ import { useState } from "react";
 const API_BASE_URL = 'http://127.0.0.1:5000/r1r6';
 
 export const fetchDataFromApiPrice = async (bodyInput: UserInput, parameterR1R6 : string) => {
-    try {
-        //const params = { client_key: '4451eee9b4efd17b513a33ff7f53a06123dbb5b91fecce2b0863307623f38eff'};  // Ejemplo de parámetros
-        let body = buildBody(bodyInput, parameterR1R6);  // Ejemplo de cuerpo (body)
-        console.log(body)
-        return await fetchData(body);
-        //console.log(apiData)
-    } catch (error) {
-        console.error('Error al llamar a la API:', error);
-    }
+    let body = buildBody(bodyInput, parameterR1R6);  // Ejemplo de cuerpo (body)
+    //console.log(body)
+    let response = await fetchData(body);
+    return JSON.stringify(response);
 };
 
 const fetchData = async (body?: any): Promise<any> => {
