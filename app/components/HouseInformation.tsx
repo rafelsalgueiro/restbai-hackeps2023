@@ -3,6 +3,8 @@ interface HouseInformationProps {
   garageSpaces: number
   score: number
   bathrooms: number
+  bedrooms: number
+  kitchens: number
 }
 
 const HouseInformation: React.FC<HouseInformationProps> = ({
@@ -10,6 +12,8 @@ const HouseInformation: React.FC<HouseInformationProps> = ({
   garageSpaces,
   score,
   bathrooms,
+  bedrooms,
+  kitchens,
 }) => {
   return (
     <div className='flex flex-row'>
@@ -31,6 +35,16 @@ const HouseInformation: React.FC<HouseInformationProps> = ({
       <div className='stat'>
         <div className='stat-title'>Bathroom number</div>
         <div className='stat-value'>{bathrooms}</div>
+      </div>
+
+      <div className='stat'>
+        <div className='stat-title'>Bedroom number</div>
+        <div className='stat-value'>{bedrooms}</div>
+      </div>
+
+      <div className='stat'>
+        <div className='stat-title'>Kitchen number</div>
+        <div className='stat-value'>{kitchens}</div>
       </div>
     </div>
   )

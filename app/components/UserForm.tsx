@@ -5,6 +5,7 @@ import { UserInput } from '@/interfaces/UserInput'
 import { PropertyType } from '@/enums/PropertyType.enum'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { PropertyTypeApi } from '@/enums/PropertyTypeApi.enum'
 
 interface UserFormProps {
   setUserUuidGlobal: React.Dispatch<React.SetStateAction<string | undefined>>
@@ -34,7 +35,8 @@ const UserForm: React.FC<UserFormProps> = ({
     country: '',
     images: [],
     squareFeets: -1,
-    propertyType: PropertyType.apartment,
+    propertyType: PropertyType.general_single_family,
+    propertyTypeApi: PropertyTypeApi.apartment,
     state: '',
     street: '',
     zipcode: -1,
@@ -140,6 +142,10 @@ const UserForm: React.FC<UserFormProps> = ({
     (value) => typeof value === 'string'
   )
 
+  const propertyTypeApiOptions = Object.values(PropertyTypeApi).filter(
+    (value) => typeof value === 'string'
+  )
+
   return (
     <form onSubmit={handleSubmit} className='flex flex-col w-full mt-4'>
       <label className='mb-4 flex justify-between items-center'>
@@ -229,6 +235,24 @@ const UserForm: React.FC<UserFormProps> = ({
           onChange={(e) => handleInputChange('propertyType', e.target.value)}
         >
           {propertyTypeOptions.map((propertyType) => (
+            <option key={propertyType} value={propertyType}>
+              {propertyType}
+            </option>
+          ))}
+        </select>
+        {formErrors.propertyType && (
+          <span className='text-error-500'>Please input property type</span>
+        )}
+      </label>
+
+      <label className='mb-4 flex justify-between items-center'>
+        Property type for the API:
+        <select
+          className='select select-bordered w-full max-w-xs'
+          value={userInput.propertyTypeApi}
+          onChange={(e) => handleInputChange('propertyTypeApi', e.target.value)}
+        >
+          {propertyTypeApiOptions.map((propertyType) => (
             <option key={propertyType} value={propertyType}>
               {propertyType}
             </option>
