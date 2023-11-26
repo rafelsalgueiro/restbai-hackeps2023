@@ -254,7 +254,7 @@ const UserForm: React.FC<UserFormProps> = ({
 
       <button
         type='submit'
-        className='btn btn-accent text-xl'
+        className='btn bg-orange-400 text-xl'
         disabled={loading}
       >
         Submit
