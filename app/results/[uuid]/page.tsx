@@ -24,6 +24,8 @@ export default function Results({
   const [description, setDescription] = useState('')
   const [score, setScore] = useState(0)
   const [bathrooms, setBathrooms] = useState(0)
+  const [bedrooms, setBedrooms] = useState(0)
+  const [kitchens, setKitchens] = useState(0)
   const [addressString, setAddress] = useState(
     `${params.userInput.street}, ${params.userInput.city}, ${params.userInput.country} ${params.userInput.zipcode}`
   )
@@ -33,12 +35,12 @@ export default function Results({
       const imageUris = params.userInput.images.map(
         (elem) => `${process.env.PUBLIC_URL}${elem}`
       )
+      const propertyTypeString = `property_type_${params.userInput.propertyType}`
       params.userInput.images = imageUris
-      console.log(params.userInput.images)
-      console.log(process.env.PUBLIC_URL)
       const userInput: UserInput = {
         ...params.userInput,
         images: imageUris,
+        propertyType: propertyTypeString as any,
       }
       const result = await centralAPI(userInput)
       console.log(result)
@@ -69,8 +71,14 @@ export default function Results({
       if (result?.images_info?.r1r6?.property?.score) {
         setScore(result.images_info.r1r6.property.score)
       }
-      if (result?.images_info?.r1r6?.summary?.count?.bathrooms) {
-        setBathrooms(result.images_info.r1r6.summary.count.bathrooms)
+      if (result?.images_info?.roomtype?.summary?.count?.bathroom) {
+        setBathrooms(result.images_info.roomtype.summary.count.bathroom)
+      }
+      if (result?.images_info?.roomtype?.summary?.count?.bedroom) {
+        setBedrooms(result.images_info.roomtype.summary.count.bedroom)
+      }
+      if (result?.images_info?.roomtype?.summary?.count?.kitchen) {
+        setKitchens(result.images_info.roomtype.summary.count.kitchen)
       }
 
       setLoading(false)
@@ -81,13 +89,13 @@ export default function Results({
 
   return (
     <div className='flex align-middle justify-center mt-20 ml-20 mr-20 mb-20'>
-      <div className='card w-2/4 bg-base-100 shadow-xl'>
-        <div className='card-title'>Your automatic generated ad</div>
+      <div className='card w-2/3 bg-base-100 shadow-xl'>
+        <div className='card-title text-4xl'>Your Automatic Generated AD</div>
         <div className='card-body'>
           <Carousel images={params.userInput.images} />
           {loading && (
-            <span className='loading loading-spinner loading-lg'>
-              Generating ad
+            <span className='loading loading-spinner loading-lg flex justify-center align-center'>
+              Generating AD
             </span>
           )}
           {!loading && (
@@ -100,10 +108,12 @@ export default function Results({
                     garageSpaces={params.userInput.garageSpaces!}
                     score={score}
                     bathrooms={bathrooms}
+                    bedrooms={bedrooms}
+                    kitchens={kitchens}
                   />
                 </div>
               </div>
-              <p>Description</p>
+              <p className='text-3xl mt-6 mb-3'>Description</p>
               <p className='text-xl text-left'>
                 {description ? description : 'Error generating description'}
               </p>

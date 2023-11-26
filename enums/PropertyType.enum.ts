@@ -1,14 +1,5 @@
 export enum PropertyType {
-    apartment = "apartment",
-    condominium = "condominium",
-    duplex = "duplex",
-    manufactured_home = "manufactured_home",
-    mobile_home = "mobile_home",
-    multi_family = "multi_family",
-    quadruplex = "quadruplex",
-    ranch = "ranch", 
-    residential = "residential",
-    single_family_residence = "single_family_residence",
-    townhouse = "townhouse",
-    triplex = "triplex",
+  general_single_family = 'general single family',
+  general_single_family_attached = 'general single family attached',
+  general_single_family_detached = 'general single family detached',
 }

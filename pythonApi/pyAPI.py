@@ -117,7 +117,7 @@ def jsonFormat():
 
 def formatJoblib():
     #print(data)
-    modelo = joblib.load('../ai_models/restb_xgboost_nocat_v2.joblib')
+    modelo = joblib.load('../ai_models/restb_xgboost.joblib')
 
     
     df = pd.DataFrame(columns=['bathroom_r1r6', 'exterior_r1r6', 'interior_r1r6','kitchen_r1r6', 'property_r1r6', 'property_type', 'bathrooms_full', 'bedrooms_total','living_area','postal_code'])
@@ -130,25 +130,17 @@ def formatJoblib():
     property_dict['interior_r1r6'] = data['image_data']['r1r6']['interior']
     property_dict['kitchen_r1r6'] = data['image_data']['r1r6']['kitchen']
     property_dict['property_r1r6'] = data['image_data']['r1r6']['property']
-    #property_dict['property_type'] = data['propertyType'] --- TEST
+    property_dict['property_type'] = data['propertyType']
     property_dict['bathrooms_full'] = data['bathrooms']
     property_dict['bedrooms_total'] = data['bedrooms']
     property_dict['living_area'] = data['squareFeets']
     property_dict['postal_code'] = data['city']
-
-    '''
-    postal_code = property_dict['postal_code']
-    postal_code_colname = "postal_code_"+str(postal_code)
-    property_dict['postal_code'] = 1
-    property_type = property_dict['property_type']
-    property_type_colname = "property_type_"+str(property_type)
-    property_dict['property_type'] = 1
-    '''
+    
 
     #df = pd.concat([pd.DataFrame(property_dict, index=[0])])
     df = df._append(property_dict, ignore_index=True)
 
-    #print(df.head(10))
+    print(df.head(10))
     df['bathroom_r1r6'] = df['bathroom_r1r6'].astype('float')
     df['exterior_r1r6'] = df['exterior_r1r6'].astype('float')
     df['interior_r1r6'] = df['interior_r1r6'].astype('float')
@@ -157,13 +149,29 @@ def formatJoblib():
     df['bathrooms_full'] = df['bathrooms_full'].astype('float')
     df['bedrooms_total'] = df['bedrooms_total'].astype('float')
     df['living_area'] = df['living_area'].astype('float')
-    df['postal_code'] = df['postal_code'].astype('float')
-    #df[property_type_colname] = df['property_type'].astype('category')
+    df["postal_code"] = df['postal_code'].astype('category')
+    df["property_type"] = df['property_type'].astype('category')
 
-    
-    df = df.drop('property_type', axis = 1)
-    #print("Tetas")
-    #print(df.info())
+    training_columns = ['bathroom_r1r6', 'exterior_r1r6', 'interior_r1r6', 'kitchen_r1r6', 'property_r1r6',
+                    'bathrooms_full', 'bedrooms_total', 'living_area',
+                    'property_type_general manufactured', 'property_type_general single family',
+                    'property_type_general single family attached', 'property_type_general single family detached',
+                    'property_type_townhome', 'postal_code_90603', 'postal_code_90620', 'postal_code_90621',
+                    'postal_code_90631', 'postal_code_90680', 'postal_code_91708', 'postal_code_91709',
+                    'postal_code_91710', 'postal_code_91723', 'postal_code_91745', 'postal_code_91748',
+                    'postal_code_91750', 'postal_code_91762', 'postal_code_91763', 'postal_code_91765',
+                    'postal_code_91767', 'postal_code_91789', 'postal_code_91791', 'postal_code_91792',
+                    'postal_code_92801', 'postal_code_92804', 'postal_code_92805', 'postal_code_92821',
+                    'postal_code_92823', 'postal_code_92831', 'postal_code_92832', 'postal_code_92835',
+                    'postal_code_92860', 'postal_code_92878', 'postal_code_92880', 'postal_code_92882']
+
+    # Asegúrate de que las columnas coincidan
+    df = df.reindex(columns=training_columns, fill_value=0)
+
+    #df = pd.get_dummies(df, columns=['property_type', 'postal_code'])
+
+    print("Tetas")
+    print(df.info())
     #le = preprocessing.LabelEncoder()
     #df['property_type'] = le.fit_transform(df['property_type'])
 
@@ -177,7 +185,8 @@ def formatJoblib():
     # ...
 
     # Guardar los resultados en un archivo de salida
-    return str(resultados[0]).split(".")[0]
+    print(str(resultados[0]).split(".")[0]+" €")
+    return str(resultados[0]).split(".")[0]+" €"
 
 
 @app.route('/r1r6', methods=['POST'])
@@ -217,5 +226,4 @@ def images():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 

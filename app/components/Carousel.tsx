@@ -4,7 +4,7 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ images }) => {
   return (
-    <div className='carousel ml-30 mr-30 h-60'>
+    <div className='carousel ml-30 mr-30 h-85'>
       {images.map((imageUri, index) => (
         <div
           id={`slide${index + 1}`}
