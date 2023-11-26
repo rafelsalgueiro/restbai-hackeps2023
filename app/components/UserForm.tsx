@@ -99,6 +99,8 @@ const UserForm: React.FC<UserFormProps> = ({
     setUserUuid(userUuid)
     setUserUuidGlobal(userUuid)
     setUserInputGlobal(userInput)
+    imagesUrls.data.map((elem) => `${process.env.PUBLIC_URL}${elem}`)
+    userInput.images = imagesUrls.data
     setLoading(false)
   }
 
@@ -248,6 +250,21 @@ const UserForm: React.FC<UserFormProps> = ({
         {formErrors.garageSpaces && (
           <span className='text-error-500'>
             Please input house garage spaces
+          </span>
+        )}
+      </label>
+
+      <label className='mb-4 flex justify-between items-center'>
+        House square feet:
+        <input
+          type='number'
+          placeholder='Square feet'
+          className='input input-bordered w-full max-w-xs'
+          onChange={(e) => handleInputChange('squareFeets', e.target.value)}
+        />
+        {formErrors.zipcode && (
+          <span className='text-error-500'>
+            Please input house square feets
           </span>
         )}
       </label>

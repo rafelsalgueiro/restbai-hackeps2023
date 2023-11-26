@@ -9,7 +9,7 @@ const CustomMap: React.FC<MapProps> = ({ address }) => {
   const [loading, setLoading] = useState(true)
 
   fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAPS_API_KEY}}`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAPS_API_KEY}`
   )
     .then((response) => response.json())
     .then((data) => {
