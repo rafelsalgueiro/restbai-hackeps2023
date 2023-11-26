@@ -47,7 +47,7 @@ const Chart: React.FC<UserFormProps> = ({ address }) => {
     }
     const options = {
     method: 'GET',
-    url: 'https://api.gateway.attomdata.com/v4/transaction/salestrend?geoIdV4='+geoIdV4+'&interval=monthly&startyear=2019&endyear=2022',
+    url: 'https://api.gateway.attomdata.com/v4/transaction/salestrend?geoIdV4='+geoIdV4+'&interval=monthly&startyear=2020&endyear=2024',
     headers: {'apikey': '35947c28f092d454cb0c5708e1a12112'}
   };
 
@@ -87,7 +87,8 @@ const Chart: React.FC<UserFormProps> = ({ address }) => {
       const chartOptions: ApexCharts.ApexOptions = {
         chart: {
           type: 'line',
-          height: 350,
+          height: 350,  
+          
         },
         series: [{
           name: 'Average Sale Price',
@@ -96,6 +97,9 @@ const Chart: React.FC<UserFormProps> = ({ address }) => {
         xaxis: {
           categories: dates,
         },
+
+          colors: ['#f7941d']
+        
       };
 
       // Si el gráfico ya existe, actualiza los datos
